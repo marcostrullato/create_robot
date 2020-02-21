@@ -83,7 +83,7 @@ $ sudo apt-get install python-rosdep python-catkin-tools
 2. Clone this repo  
     ``` bash
     $ cd ~/create_ws/src
-    $ git clone https://github.com/jacoberron/create_robot.git
+    $ git clone https://github.com/jacobperron/create_robot.git
     ```
   
 3. Install dependencies  
