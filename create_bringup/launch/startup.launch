@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="config" default="$(find create_bringup)/config/default.yaml" />
+  <arg name="desc" default="true" />
+
+  <node name="create_driver" pkg="create_driver" type="create_driver" output="screen">
+    <rosparam command="load" file="$(arg config)" />
+    <param name="robot_model" value="CREATE_2" />
+  </node>
+
+  <!-- Robot description -->
+  <include if="$(arg desc)" file="$(find create_description)/launch/create_2.launch" />
+
+
+
+
+
+  <include file="$(find freenect_launch)/launch/freenect.launch">
+      <arg name="depth_registration" value="true"/>
+  </include>
+
+  <include file="$(find rtabmap_ros)/launch/rgbd_mapping.launch">
+      <arg name="rtabmap_args" value="--delete_db_on_start"/>
+      <arg name="rviz" value="true"/>
+      <arg name="rtabmapviz" value="false"/>
+  </include>
+
+  <node pkg="mmm_teleop" name="mmm_teleop" type="teleop_node.py" output="screen"/>
+
+
+
+roslaunch create_bringup joy_teleop.launch joy_config:=gamepad
+
+
+
+</launch>
